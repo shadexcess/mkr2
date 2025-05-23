@@ -32,3 +32,10 @@ class GalleryViewsTests(TestCase):
     def test_gallery_contains_image(self):
         images_in_category = list(self.category.image_set.all())
         self.assertIn(self.image, images_in_category)
+
+    def test_image_correct_template(self):
+        url = reverse('image_detail', args=[self.image.pk])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'image_detail.html')
+        self.assertEqual(response.context['image'], self.image)
