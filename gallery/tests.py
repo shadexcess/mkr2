@@ -28,3 +28,7 @@ class GalleryViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'gallery.html')
         self.assertIn(self.category, response.context['categories'])
+
+    def test_gallery_contains_image(self):
+        images_in_category = list(self.category.image_set.all())
+        self.assertIn(self.image, images_in_category)
