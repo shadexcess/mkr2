@@ -39,3 +39,8 @@ class GalleryViewsTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'image_detail.html')
         self.assertEqual(response.context['image'], self.image)
+
+    def test_image_invalid_id(self):
+        url = reverse('image_detail', args=[52395]) # щось рандомне 
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
